@@ -1,10 +1,12 @@
-(function (global) {
+(function(global) {
   "use strict";
 
-  global.BrowserControl = function BrowserControl(view, homeurl) {
+  var BrowserControl = function BrowserControl(view, homeurl) {
     this.webview = view;
     this.homeurl = homeurl;
   };
+
+  global.BrowserControl = BrowserControl;
 
   BrowserControl.prototype.back = function back() {
     var webview = global.document.querySelector(this.webview);
@@ -30,7 +32,7 @@
     return this;
   };
 
-  global.TitleBar = function TitleBar(position, allowChangingPosition, browser) {
+  var TitleBar = function TitleBar(position, allowChangingPosition, browser) {
     this._name = position + "-titlebar";
     if (position !== "left" && position !== "right" && position !== "top" && position !== "bottom") throw "wrong position!";
     this._position = position;
@@ -39,23 +41,29 @@
     this._browser = browser;
   };
 
+  global.TitleBar = TitleBar;
+
   TitleBar.prototype.closeWindow = function closeWindow(e) {
     if (e.altKey && this.allowChangingPosition) { //change titlebar position
       this.remove();
       if (this._position === 'left') {
         this._position = 'top';
-      } else if (this._position === 'top') {
+      }
+      else if (this._position === 'top') {
         this._position = 'right';
-      } else if (this._position === 'right') {
+      }
+      else if (this._position === 'right') {
         this._position = 'bottom';
-      } else {
+      }
+      else {
         this._position = 'left';
       }
       this._name = this._position + "-titlebar";
       this.add(this.__icon, this.__text);
       this.buttons.closeButton.title = "Change titlebar position";
       this.buttons.closeButton.className += " position";
-    } else { //close
+    }
+    else { //close
       global.chrome.app.window.current().close();
     }
     return this;
@@ -65,9 +73,11 @@
     var window = global.chrome.app.window.current();
     if (window.isMinimized() || window.isMaximized()) {
       window.restore();
-    } else if (e.altKey) {
+    }
+    else if (e.altKey) {
       window.maximize();
-    } else {
+    }
+    else {
       window.minimize();
     }
 
@@ -98,10 +108,10 @@
       var button_img = this.createImage(button_name + "-image", normal_image_url);
       button.appendChild(button_img);
       if (hover_image_url) {
-        button.onmouseover = (function () {
+        button.onmouseover = (function() {
           this.updateImageUrl(button_name + "-image", hover_image_url);
         }).bind(this);
-        button.onmouseout = (function () {
+        button.onmouseout = (function() {
           this.updateImageUrl(button_name + "-image", normal_image_url);
         }).bind(this);
       }
@@ -159,8 +169,6 @@
     this.buttons.minimizeButton = minimizeButton;
 
     this.__MonitorAltKey = (function MonitorAltKey(e) {
-      if (!e) e = window.event;
-
       if (e.type === "keydown" && e.keyCode === 18) {
         if (this.allowChangingPosition && this.buttons.closeButton.className.search("position") === -1) {
           this.buttons.closeButton.title = "Change titlebar position";
@@ -170,7 +178,8 @@
           this.buttons.minimizeButton.title = "Maximize window";
           this.buttons.minimizeButton.className += " maximize";
         }
-      } else if (e.type === "keyup" && e.keyCode === 18) {
+      }
+      else if (e.type === "keyup" && e.keyCode === 18) {
         if (this.allowChangingPosition && this.buttons.closeButton.className.search("position") !== -1) {
           this.buttons.closeButton.title = closeTitle + closeChangeTitle;
           this.buttons.closeButton.className = this.buttons.closeButton.className.replace(" position", "");
@@ -213,11 +222,11 @@
 
     document.body.appendChild(titlebar);
 
-    this.onfocus = (function () {
+    this.onfocus = (function() {
       this.focus(true);
     }).bind(this);
     global.addEventListener("focus", this.onfocus);
-    this.onblur = (function () {
+    this.onblur = (function() {
       this.focus(false);
     }).bind(this);
     global.addEventListener("blur", this.onblur);
@@ -253,7 +262,7 @@
 
   TitleBar.prototype.updateContentStyle = function updateContentStyle() {
     if (this.callUpdateContent) clearTimeout(this.callUpdateContent);
-    this.callUpdateContent = setTimeout((function () {
+    this.callUpdateContent = setTimeout((function() {
       var document = global.document;
       var content = document.getElementById("content");
       if (!content)
@@ -267,22 +276,22 @@
         var height = global.outerHeight;
 
         switch (this._position) {
-        case "top":
-          height -= titlebar.offsetHeight;
-          top += titlebar.offsetHeight;
-          break;
-        case "bottom":
-          height -= titlebar.offsetHeight;
-          break;
-        case "left":
-          width -= titlebar.offsetWidth;
-          left += titlebar.offsetWidth;
-          break;
-        case "right":
-          width -= titlebar.offsetWidth;
-          break;
-        default:
-          return;
+          case "top":
+            height -= titlebar.offsetHeight;
+            top += titlebar.offsetHeight;
+            break;
+          case "bottom":
+            height -= titlebar.offsetHeight;
+            break;
+          case "left":
+            width -= titlebar.offsetWidth;
+            left += titlebar.offsetWidth;
+            break;
+          case "right":
+            width -= titlebar.offsetWidth;
+            break;
+          default:
+            return;
         }
 
         var contentStyle = "position: absolute; ";

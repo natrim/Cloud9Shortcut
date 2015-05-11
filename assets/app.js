@@ -1,16 +1,16 @@
 var viewIsLoaded = false;
-window.onload = function () {
+window.onload = function() {
 	var webview = document.querySelector('#mainwebview');
 	var browserControl = new BrowserControl('#mainwebview', webview.src);
 	var titlebar = new TitleBar('left', true, browserControl);
 	titlebar.add('assets/icon16.png', 'Cloud 9 IDE Shortcut');
 
 	var isLoaded = false;
-	var loading = setTimeout(function () {
+	var loading = setTimeout(function() {
 		document.querySelector('#mainwebview').reload();
 	}, 10000);
 
-	webview.addEventListener('contentload', function () {
+	webview.addEventListener('contentload', function() {
 		if (loading) {
 			clearTimeout(loading);
 			loading = null;
@@ -19,27 +19,28 @@ window.onload = function () {
 			isLoaded = true;
 		}
 	});
-	webview.addEventListener('permissionrequest', function (e) {
+	webview.addEventListener('permissionrequest', function(e) {
 		if (e.permission === 'download') {
 			if (e.url.search('c9.io') !== -1 || e.url.search('cloud9beta.com') !== -1) {
 				e.request.allow();
 			}
-		} else if (e.permission === 'fullscreen') {
+		}
+		else if (e.permission === 'fullscreen') {
 			e.request.allow();
 		}
 	});
-	webview.addEventListener('loadstart', function () {
+	webview.addEventListener('loadstart', function() {
 		viewIsLoaded = false;
 	});
-	webview.addEventListener('loadstop', function () {
+	webview.addEventListener('loadstop', function() {
 		viewIsLoaded = true;
 	});
-	webview.addEventListener('newwindow', function (e) {
+	webview.addEventListener('newwindow', function(e) {
 		e.preventDefault();
 		document.querySelector('#mainwebview').src = e.targetUrl;
 		//window.open(e.targetUrl);
 	});
-	webview.addEventListener('dialog', function (e) {
+	webview.addEventListener('dialog', function(e) {
 		if (e.messageType === 'prompt') {
 			console.error('prompt dialog not handled!');
 			return;
@@ -50,7 +51,8 @@ window.onload = function () {
 
 		if (e.messageType === 'confirm') {
 			document.querySelector('#dialog-cancel').style.display = 'inline';
-		} else {
+		}
+		else {
 			document.querySelector('#dialog-cancel').style.display = 'none';
 		}
 
@@ -62,18 +64,18 @@ window.onload = function () {
 	});
 
 	var returnDialog = null;
-	document.querySelector('#dialog').addEventListener('close', function () {
+	document.querySelector('#dialog').addEventListener('close', function() {
 		if (returnDialog) {
 			returnDialog.cancel();
 			returnDialog = null;
 		}
 	});
-	document.querySelector('#dialog-ok').addEventListener('click', function () {
+	document.querySelector('#dialog-ok').addEventListener('click', function() {
 		returnDialog.ok();
 		returnDialog = null;
 		document.querySelector('#dialog').close();
 	});
-	document.querySelector('#dialog-cancel').addEventListener('click', function () {
+	document.querySelector('#dialog-cancel').addEventListener('click', function() {
 		returnDialog.cancel();
 		returnDialog = null;
 		document.querySelector('#dialog').close();
