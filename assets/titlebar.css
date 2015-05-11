@@ -1,0 +1,281 @@
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('fontawesome-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+html {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Helvetica Neue', 'Lucida Grande', sans-serif;
+    font-size: 75%;
+}
+#content {
+    background-color: #dddddd;
+    margin: 0px;
+    padding: 0px;
+}
+::-webkit-scrollbar-thumb {
+    display: none;
+}
+.top-titlebar {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 26px;
+    background-color: #23232C;
+    -webkit-app-region: drag;
+}
+.bottom-titlebar {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 26px;
+    background-color: #23232C;
+    -webkit-app-region: drag;
+}
+.right-titlebar {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 26px;
+    height: 100%;
+    background-color: #23232C;
+    -webkit-app-region: drag;
+}
+.left-titlebar {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 26px;
+    height: 100%;
+    background-color: #23232C;
+    -webkit-app-region: drag;
+}
+.top-titlebar-icon, .bottom-titlebar-icon {
+    position: absolute;
+    left: 6px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.right-titlebar-icon {
+    position: absolute;
+    top: 6px;
+    margin-left: 4px;
+    margin-right: 6px;
+}
+.left-titlebar-icon {
+    position: absolute;
+    bottom: 6px;
+    margin-left: 6px;
+    margin-right: 4px;
+}
+.top-titlebar-text, .bottom-titlebar-text {
+    position: absolute;
+    white-space: nowrap;
+    left: 25px;
+    width: 80%;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    color: #C2C2CA;
+    font-size: 12pt;
+}
+.right-titlebar-text {
+    position: absolute;
+    white-space: nowrap;
+    top: 0px;
+    width: 100px;
+    margin-left: 4px;
+    margin-right: 6px;
+    font-style: Arial;
+    color: #C2C2CA;
+    font-size: 12pt;
+    -webkit-transform: rotate(90deg) translate(0, 100%);
+    -webkit-transform-origin: 0% 200%;
+}
+.left-titlebar-text {
+    position: absolute;
+    white-space: nowrap;
+    bottom: 25px;
+    width: 100px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 6px;
+    font-style: Arial;
+    color: #C2C2CA;
+    font-size: 12pt;
+    -webkit-transform: rotate(-90deg) translate(0, 100%);
+    -webkit-transform-origin: 0% 100%;
+}
+.titlebar-button {
+    position: absolute;
+    color: #C2C2CA;
+    width: 17px;
+    height: 17px;
+    cursor: hand;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1.33333333em;
+    line-height: 0.75em;
+    vertical-align: -15%;
+    text-rendering: auto;
+    transform: translate(0, 0);
+    -webkit-text-stroke: 1px rgba(0,0,0,0.5);
+    -webkit-app-region: no-drag;
+}
+.titlebar-button:hover {
+    color: #fff;
+}
+.titlebar-close-button:before {
+    content: "\f00d";
+}
+.titlebar-close-button.position:before {
+    content: "\f064";
+}
+.titlebar-minimize-button:before {
+    content: "\f068";
+}
+.titlebar-minimize-button.maximize:before {
+    content: "\f067";
+}
+.titlebar-back-button:before {
+    content: "\f053";
+}
+.titlebar-forward-button:before {
+    content: "\f054";
+}
+.titlebar-reload-button:before {
+    content: "\f021";
+}
+.titlebar-home-button:before {
+    content: "\f015";
+}
+.top-titlebar-button.titlebar-close-button, .bottom-titlebar-button.titlebar-close-button {
+    right: 9px;
+    margin-top: 6px;
+    margin-bottom: 4px;
+}
+.right-titlebar-button.titlebar-close-button {
+    bottom: 9px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.left-titlebar-button.titlebar-close-button {
+    top: 9px;
+    margin-left: 6px;
+    margin-right: 4px;
+}
+.top-titlebar-button.titlebar-minimize-button, .bottom-titlebar-button.titlebar-minimize-button {
+    right: 28px;
+    margin-top: 8px;
+    margin-bottom: 2px;
+}
+.right-titlebar-button.titlebar-minimize-button {
+    bottom: 28px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.left-titlebar-button.titlebar-minimize-button {
+    top: 28px;
+    margin-left: 6px;
+    margin-right: 4px;
+}
+.top-titlebar-button.titlebar-back-button, .bottom-titlebar-button.titlebar-back-button {
+    right: 76px;
+    margin-top: 7px;
+    margin-bottom: 3px;
+}
+.right-titlebar-button.titlebar-back-button {
+    bottom: 76px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.left-titlebar-button.titlebar-back-button {
+    top: 57px;
+    margin-left: 6px;
+    margin-right: 4px;
+}
+.top-titlebar-button.titlebar-forward-button, .bottom-titlebar-button.titlebar-forward-button {
+    right: 57px;
+    margin-top: 7px;
+    margin-bottom: 3px;
+}
+.right-titlebar-button.titlebar-forward-button {
+    bottom: 57px;
+    margin-left: 6px;
+    margin-right: 4px;
+}
+.left-titlebar-button.titlebar-forward-button {
+    top: 76px;
+    margin-left: 7px;
+    margin-right: 3px;
+}
+.top-titlebar-button.titlebar-reload-button, .bottom-titlebar-button.titlebar-reload-button {
+    right: 95px;
+    margin-top: 7px;
+    margin-bottom: 3px;
+}
+.right-titlebar-button.titlebar-reload-button {
+    bottom: 95px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.left-titlebar-button.titlebar-reload-button {
+    top: 95px;
+    margin-left: 6px;
+    margin-right: 4px;
+}
+.top-titlebar-button.titlebar-home-button, .bottom-titlebar-button.titlebar-home-button {
+    right: 114px;
+    margin-top: 7px;
+    margin-bottom: 3px;
+}
+.right-titlebar-button.titlebar-home-button {
+    bottom: 114px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.left-titlebar-button.titlebar-home-button {
+    top: 114px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.top-titlebar-divider {
+    position: absolute;
+    left: 0px;
+    top: 26px;
+    width: 100%;
+    height: 1px;
+    background-color: #777;
+}
+.bottom-titlebar-divider {
+    position: absolute;
+    left: 0px;
+    bottom: 26px;
+    width: 100%;
+    height: 1px;
+    background-color: #777;
+}
+.right-titlebar-divider {
+    position: absolute;
+    right: 26px;
+    top: 0px;
+    width: 1px;
+    height: 100%;
+    background-color: #777;
+}
+.left-titlebar-divider {
+    position: absolute;
+    left: 26px;
+    top: 0px;
+    width: 1px;
+    height: 100%;
+    background-color: #777;
+}

@@ -1,0 +1,42 @@
+{
+  "manifest_version": 2,
+  "name": "Cloud 9 IDE Shortcut",
+  "description": "Shortcut to c9.io as standalone app",
+  "version": "1.0.0",
+
+  "minimum_chrome_version": "38",
+  "author": "Natrim",
+
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+
+  "offline_enabled": false,
+
+  "permissions": [
+    "unlimitedStorage",
+    "notifications",
+    "webview",
+
+    "*://c9.io/",
+    "*://*.c9.io/",
+    "*://ide.c9.io/",
+    "*://cloud9beta.com/",
+    "*://*.cloud9beta.com/",
+    "*://ide.cloud9beta.com/",
+    "*://github.com/",
+    "*://*.github.com/",
+    "*://bitbucket.org/",
+    "*://*.bitbucket.org/"
+  ],
+
+
+  "app": {
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    }
+  }
+}
