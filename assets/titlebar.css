@@ -59,7 +59,8 @@ body {
     background-color: #23232C;
     -webkit-app-region: drag;
 }
-.top-titlebar-icon, .bottom-titlebar-icon {
+.top-titlebar-icon,
+.bottom-titlebar-icon {
     position: absolute;
     left: 6px;
     margin-top: 5px;
@@ -77,7 +78,8 @@ body {
     margin-left: 6px;
     margin-right: 4px;
 }
-.top-titlebar-text, .bottom-titlebar-text {
+.top-titlebar-text,
+.bottom-titlebar-text {
     position: absolute;
     white-space: nowrap;
     left: 25px;
@@ -127,7 +129,7 @@ body {
     vertical-align: -15%;
     text-rendering: auto;
     transform: translate(0, 0);
-    -webkit-text-stroke: 1px rgba(0,0,0,0.5);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
     -webkit-app-region: no-drag;
 }
 .titlebar-button:hover {
@@ -157,7 +159,8 @@ body {
 .titlebar-home-button:before {
     content: "\f015";
 }
-.top-titlebar-button.titlebar-close-button, .bottom-titlebar-button.titlebar-close-button {
+.top-titlebar-button.titlebar-close-button,
+.bottom-titlebar-button.titlebar-close-button {
     right: 9px;
     margin-top: 6px;
     margin-bottom: 4px;
@@ -172,7 +175,8 @@ body {
     margin-left: 6px;
     margin-right: 4px;
 }
-.top-titlebar-button.titlebar-minimize-button, .bottom-titlebar-button.titlebar-minimize-button {
+.top-titlebar-button.titlebar-minimize-button,
+.bottom-titlebar-button.titlebar-minimize-button {
     right: 28px;
     margin-top: 8px;
     margin-bottom: 2px;
@@ -187,7 +191,8 @@ body {
     margin-left: 6px;
     margin-right: 4px;
 }
-.top-titlebar-button.titlebar-back-button, .bottom-titlebar-button.titlebar-back-button {
+.top-titlebar-button.titlebar-back-button,
+.bottom-titlebar-button.titlebar-back-button {
     right: 76px;
     margin-top: 7px;
     margin-bottom: 3px;
@@ -202,7 +207,8 @@ body {
     margin-left: 6px;
     margin-right: 4px;
 }
-.top-titlebar-button.titlebar-forward-button, .bottom-titlebar-button.titlebar-forward-button {
+.top-titlebar-button.titlebar-forward-button,
+.bottom-titlebar-button.titlebar-forward-button {
     right: 57px;
     margin-top: 7px;
     margin-bottom: 3px;
@@ -217,7 +223,8 @@ body {
     margin-left: 7px;
     margin-right: 3px;
 }
-.top-titlebar-button.titlebar-reload-button, .bottom-titlebar-button.titlebar-reload-button {
+.top-titlebar-button.titlebar-reload-button,
+.bottom-titlebar-button.titlebar-reload-button {
     right: 95px;
     margin-top: 7px;
     margin-bottom: 3px;
@@ -232,7 +239,8 @@ body {
     margin-left: 6px;
     margin-right: 4px;
 }
-.top-titlebar-button.titlebar-home-button, .bottom-titlebar-button.titlebar-home-button {
+.top-titlebar-button.titlebar-home-button,
+.bottom-titlebar-button.titlebar-home-button {
     right: 114px;
     margin-top: 7px;
     margin-bottom: 3px;

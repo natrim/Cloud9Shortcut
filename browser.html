@@ -1,23 +1,26 @@
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Cloud 9 IDE Shortcut</title>
-        <script src="assets/titlebar.js"></script>
-        <link rel="stylesheet" href="assets/titlebar.css" />
-        <script src="assets/app.js"></script>
-        <link rel="stylesheet" href="assets/style.css" />
-    </head>
-    <body>
-        <div id="content">
-            <webview id="mainwebview" src="https://ide.c9.io/" partition="persist:cloud9shortcurt" allowtransparency="on"></webview>
-            <dialog id="dialog">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Cloud 9 IDE Shortcut</title>
+    <script src="assets/titlebar.js"></script>
+    <link rel="stylesheet" href="assets/titlebar.css" />
+    <script src="assets/app.js"></script>
+    <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+    <div id="content">
+        <webview id="mainwebview" src="https://ide.c9.io/" partition="persist:cloud9shortcut" allowtransparency="on"></webview>
+        <dialog id="dialog">
             <h1 id="dialog-title">Dialog Title</h1>
             <div>
                 <p id="dialog-content">Dialog content</p>
                 <button id="dialog-ok">OK</button>
                 <button id="dialog-cancel">Cancel</button>
             </div>
-            </dialog>
-        </div>
-    </body>
+        </dialog>
+    </div>
+</body>
+
 </html>
