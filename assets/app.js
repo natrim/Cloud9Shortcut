@@ -2,8 +2,8 @@ var viewIsLoaded = false;
 window.onload = function () {
 	var webview = document.querySelector('#mainwebview');
 	var browserControl = new BrowserControl('#mainwebview', webview.src);
-	var titlebar = new TitleBar('left', true, browserControl);
-	titlebar.add('assets/icon16.png', 'Cloud 9 IDE Shortcut');
+	var titlebar = new TitleBar('left', 'assets/icon16.png', 'Cloud 9 IDE Shortcut', true, browserControl);
+	titlebar.bind();
 
 	var isLoaded = false;
 	var loading = setTimeout(function () {

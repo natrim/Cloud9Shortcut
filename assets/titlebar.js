@@ -1,10 +1,11 @@
 (function (global) {
   "use strict";
 
-  global.BrowserControl = function BrowserControl(view, homeurl) {
+  var BrowserControl = function BrowserControl(view, homeurl) {
     this.webview = view;
     this.homeurl = homeurl;
   };
+  global.BrowserControl = BrowserControl;
 
   BrowserControl.prototype.back = function back() {
     var webview = global.document.querySelector(this.webview);
@@ -30,31 +31,55 @@
     return this;
   };
 
-  global.TitleBar = function TitleBar(position, allowChangingPosition, browser) {
-    this._name = position + "-titlebar";
-    if (position !== "left" && position !== "right" && position !== "top" && position !== "bottom") throw "wrong position!";
-    this._position = position;
-    this.allowChangingPosition = allowChangingPosition;
-    if (!global.document.getElementById("content")) throw "you need to have all things wrapped inside <div id=\"content\" />!";
-    this._browser = browser;
+  var TitleBar = function TitleBar(position, titlebar_icon_url, titlebar_text, allowChangingPosition, browser) {
+      if (typeof position !== "string") position = "top";
+      if (typeof allowChangingPosition !== "boolean") allowChangingPosition = false;
+      if (typeof browser !== "object" || !(browser instanceof BrowserControl)) browser = undefined;
+      
+      if (!global.document.getElementById("content")) throw "you need to have all things wrapped inside <div id=\"content\" />!";
+      if (position !== "left" && position !== "right" && position !== "top" && position !== "bottom") throw "wrong position!";
+      
+      this._name = position + "-titlebar";
+      this._position = position;
+      this.__build_done = false;
+      
+      chrome.storage.sync.get("titlebar_position", (function(result) {
+         if (typeof result === "object" && typeof result["titlebar_position"] === "string") {
+            if (result.titlebar_position === "left" || result.titlebar_position === "right" || result.titlebar_position === "top" || result.titlebar_position === "bottom") {
+                position = result.titlebar_position;
+                this._name = position + "-titlebar";
+                this._position = position;
+            }
+         }
+         
+         this.__build_done = true;
+      }).bind(this));
+      
+      this._icon = titlebar_icon_url;
+      this._text = titlebar_text;
+      this.allowChangingPosition = allowChangingPosition;
+      this._browser = browser;
   };
+  global.TitleBar = TitleBar;
 
   TitleBar.prototype.closeWindow = function closeWindow(e) {
     if (e.altKey && this.allowChangingPosition) { //change titlebar position
-      this.remove();
-      if (this._position === 'left') {
-        this._position = 'top';
-      } else if (this._position === 'top') {
-        this._position = 'right';
-      } else if (this._position === 'right') {
-        this._position = 'bottom';
+      this.unbind();
+      if (this._position === "left") {
+        this._position = "top";
+      } else if (this._position === "top") {
+        this._position = "right";
+      } else if (this._position === "right") {
+        this._position = "bottom";
       } else {
-        this._position = 'left';
+        this._position = "left";
       }
       this._name = this._position + "-titlebar";
-      this.add(this.__icon, this.__text);
+      this.bind();
+
       this.buttons.closeButton.title = "Change titlebar position";
       this.buttons.closeButton.className += " position";
+      chrome.storage.sync.set({"titlebar_position": this._position});
     } else { //close
       global.chrome.app.window.current().close();
     }
@@ -63,12 +88,17 @@
 
   TitleBar.prototype.minimizeWindow = function minimizeWindow(e) {
     var window = global.chrome.app.window.current();
-    if (window.isMinimized() || window.isMaximized()) {
+    
+    if (window.isFullscreen()) {
       window.restore();
     } else if (e.altKey) {
-      window.maximize();
+      if (window.isMaximized()) {
+        window.restore();
+      } else {
+        window.maximize();
+      }
     } else {
-      window.minimize();
+        window.minimize();
     }
 
     return this;
@@ -125,9 +155,13 @@
       titlebar.style.backgroundColor = bg_color;
   };
 
-  TitleBar.prototype.add = function addTitlebar(titlebar_icon_url, titlebar_text) {
-    this.__icon = titlebar_icon_url;
-    this.__text = titlebar_text;
+  TitleBar.prototype.bind = function addTitlebar() {
+    
+    if (!this.__build_done) {
+      setTimeout(this.bind.bind(this), 100);
+      return;
+    }
+    
     this.buttons = {};
     var document = global.document;
     var titlebar = document.createElement("div");
@@ -136,12 +170,12 @@
 
     var icon = document.createElement("div");
     icon.setAttribute("class", this._name + "-icon");
-    icon.appendChild(this.creator.createImage(this._name + "icon", titlebar_icon_url));
+    icon.appendChild(this.creator.createImage(this._name + "icon", this._icon));
     titlebar.appendChild(icon);
 
     var title = document.createElement("div");
     title.setAttribute("class", this._name + "-text");
-    title.innerText = titlebar_text;
+    title.innerText = this._text;
     titlebar.appendChild(title);
 
     var closeTitle = "Close";
@@ -227,7 +261,7 @@
     this.updateContentStyle();
   };
 
-  TitleBar.prototype.remove = function removeTitlebar() {
+  TitleBar.prototype.unbind = function removeTitlebar() {
     var document = global.document;
     var titlebar = document.getElementById(this._name);
     if (titlebar) {
