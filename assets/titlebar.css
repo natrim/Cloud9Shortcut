@@ -96,7 +96,7 @@ body {
     width: 100px;
     margin-left: 4px;
     margin-right: 6px;
-    font-style: Arial;
+    font-family: Arial, Helvetica, sans-serif;
     color: #C2C2CA;
     font-size: 12pt;
     -webkit-transform: rotate(90deg) translate(0, 100%);
@@ -110,7 +110,7 @@ body {
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 6px;
-    font-style: Arial;
+    font-family: Arial, Helvetica, sans-serif;
     color: #C2C2CA;
     font-size: 12pt;
     -webkit-transform: rotate(-90deg) translate(0, 100%);

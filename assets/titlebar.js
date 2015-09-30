@@ -43,7 +43,7 @@
       this._position = position;
       this.__build_done = false;
       
-      chrome.storage.sync.get("titlebar_position", (function(result) {
+      global.chrome.storage.sync.get("titlebar_position", (function(result) {
          if (typeof result === "object" && typeof result["titlebar_position"] === "string") {
             if (result.titlebar_position === "left" || result.titlebar_position === "right" || result.titlebar_position === "top" || result.titlebar_position === "bottom") {
                 position = result.titlebar_position;
@@ -79,7 +79,7 @@
 
       this.buttons.closeButton.title = "Change titlebar position";
       this.buttons.closeButton.className += " position";
-      chrome.storage.sync.set({"titlebar_position": this._position});
+      global.chrome.storage.sync.set({"titlebar_position": this._position});
     } else { //close
       global.chrome.app.window.current().close();
     }

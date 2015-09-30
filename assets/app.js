@@ -1,4 +1,4 @@
-var viewIsLoaded = false;
+/* global BrowserControl, TitleBar */
 window.onload = function() {
 	var webview = document.querySelector('#mainwebview');
 	var browserControl = new BrowserControl('#mainwebview', webview.src);
@@ -6,8 +6,17 @@ window.onload = function() {
 	titlebar.bind();
 
 	var isLoaded = false;
+	var loadLimit = 10;
 	var loading = setTimeout(function() {
-		document.querySelector('#mainwebview').reload();
+		if (loadLimit >= 10) {
+			document.querySelector('#dialog-title').innerHTML = 'Error';
+			document.querySelector('#dialog-content').innerHTML = 'Cannot open C9! Check your internet connection and use Reload in titlebar.';
+			document.querySelector('#dialog-cancel').style.display = 'none';
+			document.querySelector('#dialog').showModal();
+		} else {
+			loadLimit++;
+			document.querySelector('#mainwebview').reload();
+		}
 	}, 10000);
 
 	webview.addEventListener('contentload', function() {
@@ -28,12 +37,6 @@ window.onload = function() {
 		else if (e.permission === 'fullscreen') {
 			e.request.allow();
 		}
-	});
-	webview.addEventListener('loadstart', function() {
-		viewIsLoaded = false;
-	});
-	webview.addEventListener('loadstop', function() {
-		viewIsLoaded = true;
 	});
 	webview.addEventListener('newwindow', function(e) {
 		e.preventDefault();
@@ -71,13 +74,17 @@ window.onload = function() {
 		}
 	});
 	document.querySelector('#dialog-ok').addEventListener('click', function() {
-		returnDialog.ok();
-		returnDialog = null;
+		if (returnDialog) {
+			returnDialog.ok();
+			returnDialog = null;
+		}
 		document.querySelector('#dialog').close();
 	});
 	document.querySelector('#dialog-cancel').addEventListener('click', function() {
-		returnDialog.cancel();
-		returnDialog = null;
+		if (returnDialog) {
+			returnDialog.cancel();
+			returnDialog = null;
+		}
 		document.querySelector('#dialog').close();
 	});
 };
