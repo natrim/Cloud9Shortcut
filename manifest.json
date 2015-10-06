@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Cloud 9 IDE Shortcut",
     "description": "Shortcut to c9.io as standalone app",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "minimum_chrome_version": "38",
     "author": "Natrim",
 
